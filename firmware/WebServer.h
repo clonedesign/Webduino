@@ -38,7 +38,7 @@
 #include <EthernetServer.h>
 #else
 
-#define pgm_read_byte(x) (*((uint8_t*)x))
+#define ws_pgm_read_byte(x) (*((uint8_t*)x))
 
 #endif
 
@@ -160,7 +160,7 @@ extern "C" unsigned long millis(void);
 #define SIZE(array) (sizeof(array) / sizeof(*array))
 
 #ifdef _VARIANT_ARDUINO_DUE_X_
-#define pgm_read_byte(ptr) (unsigned char)(* ptr)
+#define ws_pgm_read_byte(ptr) (unsigned char)(* ptr)
 #endif
 /********************************************************************
  * DECLARATIONS
@@ -478,7 +478,7 @@ void WebServer::writeP(const unsigned char *data, size_t length)
 #else
   while (length--)
   {
-    write(pgm_read_byte(data++));
+    write(ws_pgm_read_byte(data++));
   }
 #endif  
 }
@@ -490,7 +490,7 @@ void WebServer::printP(const unsigned char *str)
     fixmedelay();
     write((const uint8_t*)str, strlen((const char*)str));
 #else
-  while (uint8_t value = pgm_read_byte(str++))
+  while (uint8_t value = ws_pgm_read_byte(str++))
   {
     write(value);
   }
